@@ -1,0 +1,45 @@
+services:
+
+  trainer:
+    build: ./train
+
+    volumes:
+      - model_volume:/model_data
+
+    command: python train.py
+
+    restart: "no"
+
+
+
+  api:
+    build: ./api
+
+    ports:
+      - "5000:5000"
+
+    volumes:
+      - model_volume:/model_data
+
+    depends_on:
+      - trainer
+
+    restart: always
+
+
+
+  streamlit:
+    build: ./streamlit
+
+    ports:
+      - "8501:8501"
+
+    depends_on:
+      - api
+
+    restart: always
+
+
+
+volumes:
+  model_volume:
