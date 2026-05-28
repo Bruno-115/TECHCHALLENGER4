@@ -1,6 +1,7 @@
-Flask
+flask
+flask-cors
 pydantic
-numpy
-scikit-learn
 joblib
 pandas
+scikit-learn==1.6.1
+gunicorn

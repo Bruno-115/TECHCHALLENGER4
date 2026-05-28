@@ -1,41 +1,51 @@
-from flask import Flask,request,jsonify,Response
-from pydantic import  BaseModel, ValidationError
+from flask import Flask, request, jsonify, Response
+from flask_cors import CORS
+from pydantic import BaseModel, ValidationError
 import joblib
 import pandas as pd
+import os
 
 app = Flask(__name__)
+CORS(app)
 
-
-#Carregar a pipeline criada pelo Giovanni
+# Carregar pipeline
 pipeline_path = 'model_data/pipeline.pkl'
+
 with open(pipeline_path, 'rb') as f:
     pipeline = joblib.load(f)
 
+# Rota teste
+@app.route("/")
+def home():
+    return "API ONLINE"
 
-#Criar a classe de entrada
+# Classe de entrada
 class InputData(BaseModel):
-     Gender : str
-     Age  : float
-     Height : float
-     Weight  : float
-     family_history : str
-     FAVC : str
-     FCVC  : float
-     NCP  : float
-     CAEC : str
-     SMOKE : str
-     CH2O  : float
-     SCC  : str
-     FAF : float
-     TUE  : float
-     CALC  : str
-     MTRANS : str
-     BMI : float
+     Gender: str
+     Age: float
+     Height: float
+     Weight: float
+     family_history: str
+     FAVC: str
+     FCVC: float
+     NCP: float
+     CAEC: str
+     SMOKE: str
+     CH2O: float
+     SCC: str
+     FAF: float
+     TUE: float
+     CALC: str
+     MTRANS: str
+     BMI: float
 
-@app.route("/predict",methods=["POST"])
+@app.route("/predict", methods=["POST"])
 def predict():
+
     try:
+
         input_data = InputData(**request.get_json())
+
         features = pd.DataFrame([{
             "Gender": input_data.Gender,
             "Age": input_data.Age,
@@ -55,22 +65,34 @@ def predict():
             "MTRANS": input_data.MTRANS,
             "BMI": input_data.BMI,
         }])
+
         prediction = pipeline.predict(features)
-        status_codes = 200
-        status_message = Response(status = status_codes).status
+
         return jsonify({
-            "status":status_message,
-            "data": {"prediction": prediction[0]}
-        }),status_codes
+            "status": "200 OK",
+            "data": {
+                "prediction": str(prediction[0])
+            }
+        }), 200
+
     except ValidationError as e:
+
         return jsonify({
             "error": e.errors()
         }), 400
 
     except Exception as e:
+
         return jsonify({
             "error": str(e)
         }), 500
 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+
+    port = int(os.environ.get("PORT", 5000))
+
+    app.run(
+        host="0.0.0.0",
+        port=port
+    )
