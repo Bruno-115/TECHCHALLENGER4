@@ -66,11 +66,11 @@ st.write("Insira abaixo os valores das variáveis da característica da pessoa:"
 #Campos de entrada:
 Gender = st.radio("Escolha o genêro da pessoa ", options=list(opcoes_genero.keys()),format_func= lambda x: opcoes_genero[x])
 
-Age = st.slider("Qual a idade da pessoa?", 0, 150, 0)
+Age = st.slider("Qual a idade da pessoa?", 0, 110, 0)
 
-Height = st.number_input("Qual a altura da pessoa?")
+Height = st.number_input("Qual a altura da pessoa?",max_value=2.3)
 
-Weight = st.number_input("Qual o peso da pessoa?")
+Weight = st.number_input("Qual o peso da pessoa em KG?",max_value=400)
 
 BMI = Weight / (Height ** 2) if Height > 0 else 0
 
