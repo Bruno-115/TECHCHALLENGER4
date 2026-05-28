@@ -1,10 +1,12 @@
-from flask import Flask,request,jsonify,Response
-from pydantic import  BaseModel, ValidationError
+from flask import Flask, request, jsonify, Response
+from flask_cors import CORS
+from pydantic import BaseModel, ValidationError
 import joblib
 import pandas as pd
+import os
 
 app = Flask(__name__)
-
+CORS(app)
 
 #Carregar a pipeline criada pelo Giovanni
 pipeline_path = 'model_data/pipeline.pkl'
@@ -56,12 +58,13 @@ def predict():
             "BMI": input_data.BMI,
         }])
         prediction = pipeline.predict(features)
-        status_codes = 200
-        status_message = Response(status = status_codes).status
+
         return jsonify({
-            "status":status_message,
-            "data": {"prediction": prediction[0]}
-        }),status_codes
+            "status": "200 OK",
+            "data": {
+                "prediction": str(prediction[0])
+            }
+        }), 200
     except ValidationError as e:
         return jsonify({
             "error": e.errors()
@@ -73,4 +76,10 @@ def predict():
         }), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+
+    port = int(os.environ.get("PORT", 5000))
+
+    app.run(
+        host="0.0.0.0",
+        port=port
+    )

@@ -33,6 +33,10 @@ services:
 
     ports:
       - "8501:8501"
+    
+    volumes:
+    - model_volume:/model_data
+    - ./train/Obesity.csv:/app/Obesity.csv   # ← adicione essa linha
 
     depends_on:
       - api

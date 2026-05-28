@@ -8,4 +8,6 @@ RUN pip install -r requirements
 
 COPY . .
 
-CMD ["python", "train.py"]
+EXPOSE 8501
+
+CMD ["streamlit", "run", "app.py", "--server.address=0.0.0.0"]
