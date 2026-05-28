@@ -66,7 +66,7 @@ st.write("Insira abaixo os valores das variáveis da característica da pessoa:"
 #Campos de entrada:
 Gender = st.radio("Escolha o genêro da pessoa ", options=list(opcoes_genero.keys()),format_func= lambda x: opcoes_genero[x])
 
-Age = st.slider("Qual a idade da pessoa?", 0, 150, 0)
+Age = st.slider("Qual a idade da pessoa?", 0, 110, 0)
 
 Height = st.number_input("Qual a altura da pessoa? Max:2.3M",max_value=2.3)
 
