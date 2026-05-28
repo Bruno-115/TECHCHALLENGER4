@@ -68,7 +68,7 @@ Gender = st.radio("Escolha o genêro da pessoa ", options=list(opcoes_genero.key
 
 Age = st.slider("Qual a idade da pessoa?", 0, 110, 0)
 
-Height = st.number_input("Qual a altura da pessoa? Max:2.3M",max_value=2.3)
+Height = st.number_input("Qual a altura da pessoa? Max:2.3MMMM",max_value=2.3)
 
 Weight = st.number_input("Qual o peso da pessoa em KG? Max:400KG",max_value=400)
 
