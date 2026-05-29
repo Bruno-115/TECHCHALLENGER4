@@ -1,12 +1,10 @@
-FROM python:3.9-slim
+FROM python:3.11
 
 WORKDIR /app
 
-COPY requirements .
+COPY . .
 
 RUN pip install -r requirements
-
-COPY . .
 
 EXPOSE 8501
 
