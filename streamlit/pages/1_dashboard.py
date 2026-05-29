@@ -235,7 +235,7 @@ def load_data():
     pd.DataFrame ou None se nenhum caminho for encontrado.
     """
     paths = [
-        "Obesity.csv",
+        "./Obesity.csv",
         "/app/Obesity.csv",
         "../train/Obesity.csv",
         "train/Obesity.csv",
