@@ -6,6 +6,4 @@ st.set_page_config(
 )
 
 st.title("Tech Challenge")
-
-st.page_link("pages/1_dashboard.py", label="Dashboard")
-st.page_link("pages/2_modeloML.py", label="Modelo ML")
+st.write("Aplicação funcionando")
