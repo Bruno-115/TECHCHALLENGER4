@@ -1,17 +1,25 @@
 import streamlit as st
 
-st.set_page_config(layout="wide")
-
-pagina = st.selectbox(
-    "Escolha a página",
-    (
-        "Dashboard",
-        "Modelo ML"
-    )
+# Definindo páginas
+dashboard_page = st.Page(
+    "pages/1_dashboard.py",
+    title="Dashboard",
+    icon="📊"
 )
 
-if pagina == "Dashboard":
-    st.switch_page("pages/1_dashboard.py")
+modelo_page = st.Page(
+    "pages/2_modeloML.py",
+    title="Modelo ML",
+    icon="🤖"
+)
 
-elif pagina == "Modelo ML":
-    st.switch_page("pages/2_modeloML.py")
+# Navegação
+pg = st.navigation(
+    [dashboard_page, modelo_page]
+)
+
+# Elementos globais
+st.sidebar.title("Tech Challenge")
+
+# Executa página selecionada
+pg.run()
