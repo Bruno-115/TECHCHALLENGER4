@@ -160,7 +160,6 @@ if st.button("Verificar"):
         "MTRANS": MTRANS,
         "BMI": BMI
     }
-
     try:
 
         response = requests.post(
