@@ -236,7 +236,6 @@ def load_data():
     """
     paths = [
         "./Obesity.csv",
-        "/app/Obesity.csv",
         "../train/Obesity.csv",
         "train/Obesity.csv",
     ]
